@@ -13,7 +13,7 @@ class Vigenere
 private:
     static const std::string alpha;   //алфавит по порядку
     static const std::map <char,int> alpha_num;     //ассоциативный массив "номер по символу"
-#ifdef UNITTEST_POSIX     
+#ifdef UNITTEST_POSIX
 public:
 #else
 private:

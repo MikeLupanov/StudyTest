@@ -1,3 +1,4 @@
-vigenere-test
+vigenere-*
+*.o
 *.orig
 
