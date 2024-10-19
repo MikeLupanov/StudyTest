@@ -55,7 +55,7 @@ std::string Vigenere::decrypt(const std::string& cipher_text)
     return convert(work);
 }
 
-inline std::vector<int> Vigenere::convert(const std::string& s)
+std::vector<int> Vigenere::convert(const std::string& s)
 {
     std::vector<int> result;
     for(auto c:s) {
@@ -64,7 +64,7 @@ inline std::vector<int> Vigenere::convert(const std::string& s)
     return result;
 }
 
-inline std::string Vigenere::convert(const std::vector<int>& v)
+std::string Vigenere::convert(const std::vector<int>& v)
 {
     std::string result;
     for(auto i:v) {

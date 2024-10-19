@@ -8,7 +8,22 @@
         REQUIRE CHECK_EQUAL(waiting.size(),resulting.size()); \
         CHECK_EQUAL(waiting,resulting); \
     }
+struct expected {
+	std::vector<int> vect {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25};
+	std::string str {"ABCDEFGHIJKLMNOPQRSTUVWXYZ"};
+};
 
+// Сценарий тестирования статических методов класса convert
+SUITE(ConvertTest) {
+	//Конвертация строки в массив
+	TEST_FIXTURE(expected, ConvertStringToVector){
+		CHECK_ARRAY_EQUAL(vect, Vigenere::convert(str), vect.size());
+	}
+	//конвертация массива в строку
+	TEST_FIXTURE(expected, ConvertVectorToString){
+		CHECK_EQUAL(str, Vigenere::convert(vect));
+	}
+}
 // Сценарии тестирования конструктора
 SUITE(KeyTest)
 {
