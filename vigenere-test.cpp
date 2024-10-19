@@ -2,12 +2,7 @@
 #include <UnitTest++/UnitTest++.h>
 #include "Vigenere/vigenere.h"
 
-#define CHECK_EQUAL_STR(WS,RS)  { \
-        std::string waiting = WS; \
-        std::string resulting = RS; \
-        REQUIRE CHECK_EQUAL(waiting.size(),resulting.size()); \
-        CHECK_EQUAL(waiting,resulting); \
-    }
+// Фикстура для тестирования Vigenere::convert
 struct expected {
 	std::vector<int> vect {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25};
 	std::string str {"ABCDEFGHIJKLMNOPQRSTUVWXYZ"};
@@ -82,6 +77,7 @@ SUITE(KeyTest)
     }
 }
 
+// Фикстуры с различными конструкторами 
 struct VigenereZZZ {
     Vigenere v {"ZZZ"};
 };
@@ -97,27 +93,27 @@ SUITE(EncryptTest)
 {
     // регистр текста
     TEST_FIXTURE(VigenereABC, UpperCaseText) {
-        CHECK_EQUAL_STR("HFNLP", v.encrypt("HELLO"));
+        CHECK_EQUAL("HFNLP", v.encrypt("HELLO"));
     }
     TEST_FIXTURE(VigenereABC, LowCaseText) {
-        CHECK_EQUAL_STR("HFNLP", v.encrypt("hello"));
+        CHECK_EQUAL("HFNLP", v.encrypt("hello"));
     }
     TEST_FIXTURE(VigenereABC, MixCaseText) {
-        CHECK_EQUAL_STR("HFNLP", v.encrypt("hElLo"));
+        CHECK_EQUAL("HFNLP", v.encrypt("hElLo"));
     }
     // длина текста
     TEST_FIXTURE(VigenereABCXYZ, ShortText) {
-        CHECK_EQUAL_STR("HFNIM", v.encrypt("HELLO"));
+        CHECK_EQUAL("HFNIM", v.encrypt("HELLO"));
     }
     TEST_FIXTURE(VigenereABCXYZ, EqualText) {
-        CHECK_EQUAL_STR("AMRFLD", v.encrypt("ALPINE"));
+        CHECK_EQUAL("AMRFLD", v.encrypt("ALPINE"));
     }
     TEST_FIXTURE(VigenereABCXYZ, LongText) {
-        CHECK_EQUAL_STR("LJUPYAOO", v.encrypt("LISSABON"));
+        CHECK_EQUAL("LJUPYAOO", v.encrypt("LISSABON"));
     }
     // максимальный сдвиг
     TEST_FIXTURE(VigenereZZZ, MaxShiftText) {
-        CHECK_EQUAL_STR("ZABCDEFGHIJKLMNOPQRSTUVWXY", v.encrypt("ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
+        CHECK_EQUAL("ZABCDEFGHIJKLMNOPQRSTUVWXY", v.encrypt("ABCDEFGHIJKLMNOPQRSTUVWXYZ"));
     }
     // недопустимые символы в тексте
     TEST_FIXTURE(VigenereABC, CommaInText) {
@@ -139,27 +135,27 @@ SUITE(DecryptTest)
 {
     // регистр шифротекста
     TEST_FIXTURE(VigenereABC, UpperCaseCipherText) {
-        CHECK_EQUAL_STR("HELLO", v.decrypt("HFNLP"));
+        CHECK_EQUAL("HELLO", v.decrypt("HFNLP"));
     }
     TEST_FIXTURE(VigenereABC, LowCaseCipherText) {
-        CHECK_EQUAL_STR("HELLO", v.decrypt("hfnlp"));
+        CHECK_EQUAL("HELLO", v.decrypt("hfnlp"));
     }
     TEST_FIXTURE(VigenereABC, MixCaseCipherText) {
-        CHECK_EQUAL_STR("HELLO", v.decrypt("HfNlP"));
+        CHECK_EQUAL("HELLO", v.decrypt("HfNlP"));
     }
     // длина шифротекста
     TEST_FIXTURE(VigenereABCXYZ, ShortCipherText) {
-        CHECK_EQUAL_STR("HELLO", v.decrypt("HFNIM"));
+        CHECK_EQUAL("HELLO", v.decrypt("HFNIM"));
     }
     TEST_FIXTURE(VigenereABCXYZ, EqualCipherText) {
-        CHECK_EQUAL_STR("ALPINE", v.decrypt("AMRFLD"));
+        CHECK_EQUAL("ALPINE", v.decrypt("AMRFLD"));
     }
     TEST_FIXTURE(VigenereABCXYZ, LongCipherText) {
-        CHECK_EQUAL_STR("LISSABON", v.decrypt("LJUPYAOO"));
+        CHECK_EQUAL("LISSABON", v.decrypt("LJUPYAOO"));
     }
     // максимальный сдвиг
     TEST_FIXTURE(VigenereZZZ, MaxShiftCipherText) {
-        CHECK_EQUAL_STR("ABCDEFGHIJKLMNOPQRSTUVWXYZ",v.decrypt("ZABCDEFGHIJKLMNOPQRSTUVWXY"));
+        CHECK_EQUAL("ABCDEFGHIJKLMNOPQRSTUVWXYZ",v.decrypt("ZABCDEFGHIJKLMNOPQRSTUVWXY"));
     }
     // недопустимые символы в шифротексте
     TEST_FIXTURE(VigenereABC, CommaInCipherText) {
