@@ -1,11 +1,12 @@
 .PHONY: all clean test format
 
+VIGENERE_DIR=../Vigenere
 CXX=g++
-OFLAGS=-O2 -Wall -DNDEBUG
+OFLAGS=-O2 -std=c++17 -Wall -DNDEBUG -I$(VIGENERE_DIR)
 LDFLAGS=-lUnitTest++ 
 
-SOURCES=Vigenere/vigenere.cpp vigenere-test.cpp
-HEADERS=Vigenere/vigenere.h
+SOURCES=$(VIGENERE_DIR)/vigenere.cpp vigenere-test.cpp
+HEADERS=$(VIGENERE_DIR)/vigenere.h
 EXECUTABLE=vigenere-test
 
 
@@ -16,6 +17,6 @@ test: $(EXECUTABLE)
 	./$(EXECUTABLE) 
 
 format:
-	astyle $(SOURCES) $(HEADERS)
+	astyle -n -A10 $(SOURCES) $(HEADERS)
 clean:
-	rm -f $(EXECUTABLE) *.orig
+	rm -f $(EXECUTABLE)
