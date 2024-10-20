@@ -3,9 +3,9 @@
 CXX=g++
 OFLAGS=-O2 -std=c++17 -Wall -DNDEBUG
 
-all: commandline dialog
+all: command dialog
 
-commandline: vigenere-command
+command: vigenere-command
 
 dialog: vigenere-dialog
 

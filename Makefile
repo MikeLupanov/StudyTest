@@ -9,7 +9,7 @@ HEADERS=Vigenere/vigenere.h
 EXECUTABLE=vigenere-test
 
 
-$(EXECUTABLE): $(SOURCES)
+$(EXECUTABLE): $(SOURCES) $(HEADERS)
 	$(CXX)  $(SOURCES)  -o $(EXECUTABLE) $(OFLAGS) $(LDFLAGS)
 
 test: $(EXECUTABLE)

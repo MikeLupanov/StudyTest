@@ -1,3 +1,12 @@
+/******************************************
+*                                         *
+*         Учебный пример                  *
+* Модуль Vigenere, реализация класса      *
+*                                         *
+* (c) Лупанов М.Ю., ИБСТ, ПГУ, 2020       *
+*                                         *
+******************************************/
+
 #include <algorithm>
 #include <functional>
 #include <stdexcept>
@@ -5,7 +14,9 @@
 #include "vigenere.h"
 #include <iostream>
 
-const std::string Vigenere::alpha {"ABCDEFGHIJKLMNOPQRSTUVWXYZ"}; //алфавит по порядку - реализация
+//алфавит по порядку - реализация
+const std::string Vigenere::alpha {"ABCDEFGHIJKLMNOPQRSTUVWXYZ"};
+
 //лямбда-функция для заполнения ассоциативного массива
 auto make_alpha_num
 {
@@ -25,7 +36,7 @@ Vigenere::Vigenere(const std::string& skey)
     if (skey.size() == 0)
         throw std::invalid_argument("Empty key");     // исключение, пустой ключ
     if (std::find_if_not(skey.begin(),skey.end(),isalpha) != skey.end())
-        throw std::invalid_argument("Non-alpha symbols in key");     // исключение, если не буквы
+        throw std::invalid_argument("Non-alpha symbols in key");  // исключение, если не буквы
     key = convert(skey);
     if (std::count(key.begin(), key.end(), 0) >= key.size()/2.0)
         throw std::invalid_argument("Weak key");     // исключение, если слабый ключ
@@ -35,7 +46,7 @@ Vigenere::Vigenere(const std::string& skey)
 std::string Vigenere::encrypt(const std::string& open_text)
 {
     if (std::find_if_not(open_text.begin(),open_text.end(),isalpha) != open_text.end())
-        throw std::invalid_argument("Non-alpha symbols in message");     // исключение, если не буквы
+        throw std::invalid_argument("Non-alpha symbols in message"); // исключение, если не буквы
     std::vector<int> work = convert(open_text);
     for(unsigned i=0; i < work.size(); i++) {
         work[i] = (work[i] + key[i % key.size()]) % alpha_num.size();
