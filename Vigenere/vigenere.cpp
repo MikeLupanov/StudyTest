@@ -46,6 +46,7 @@ Vigenere::Vigenere(const std::string& skey)
     }
 }
 
+
 //зашифрование - реализация
 std::string Vigenere::encrypt(const std::string& open_text)
 {
