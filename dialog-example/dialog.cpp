@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <string>
+#include <memory>
 #include "vigenere.h"
 
 
@@ -20,21 +21,28 @@ int main(int argc, char **argv)
     unsigned op;
     std::cout<<"Cipher ready. Input key: ";
     std::getline(std::cin, key);
-    Vigenere cipher(key);
+    std::unique_ptr<Vigenere> cipher_ptr;
+    try {
+        cipher_ptr = std::make_unique<Vigenere>(new Vigenere(key));
+    } catch(std::invalid_argument& e) {
+        std::cerr << e.what() << ", program terminated\n";
+        exit(1);
+    }
     do {
         std::cout<<"Cipher ready. Input operation (0-exit, 1-encrypt, 2-decrypt): ";
         std::cin>>op;
-        if (op > 2) {
-            std::cout<<"Illegal operation\n";
-        } else if (op >0) {
+        if (op > 2 || std::cin.fail()) {
+            std::cout<<"Illegal operation, program terminated\n";
+            exit(2);
+        } else if (op > 0) {
             std::cout<<"Cipher ready. Input text: ";
             std::cin >> std::ws;
             std::getline(std::cin, text);
             try {
-                if (op==1) {
-                    std::cout<<"Encrypted text: "<<cipher.encrypt(text)<<std::endl;
-                } else {
-                    std::cout<<"Decrypted text: "<<cipher.decrypt(text)<<std::endl;
+                if (op == 1) {
+                    std::cout<<"Encrypted text: "<<cipher_ptr->encrypt(text)<<std::endl;
+                } else  {
+                    std::cout<<"Decrypted text: "<<cipher_ptr->decrypt(text)<<std::endl;
                 }
             } catch(std::invalid_argument& e) {
                 std::cerr << e.what() << std::endl;
