@@ -5,13 +5,13 @@ CXX=g++
 OFLAGS=-O2 -std=c++17 -Wall -DNDEBUG -I$(VIGENERE_DIR)
 LDFLAGS=-lUnitTest++ 
 
-SOURCES=$(VIGENERE_DIR)/vigenere.cpp vigenere-test.cpp
+SOURCES=$(VIGENERE_DIR)/vigenere.cpp unittest.cpp
 HEADERS=$(VIGENERE_DIR)/vigenere.h
 EXECUTABLE=vigenere-test
 
 
 $(EXECUTABLE): $(SOURCES) $(HEADERS)
-	$(CXX)  $(SOURCES)  -o $(EXECUTABLE) $(OFLAGS) $(LDFLAGS)
+	$(CXX)  $(SOURCES)  -o $@ $(OFLAGS) $(LDFLAGS)
 
 test: $(EXECUTABLE)
 	./$(EXECUTABLE) 
