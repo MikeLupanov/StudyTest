@@ -31,9 +31,11 @@ int main(int argc, char **argv)
     do {
         std::cout<<"Cipher ready. Input operation (0-exit, 1-encrypt, 2-decrypt): ";
         std::cin>>op;
-        if (op > 2 || std::cin.fail()) {
+        if (std::cin.fail() || (std::cin.peek() != '\n')) {
             std::cout<<"Illegal operation, program terminated\n";
             exit(2);
+        } else if (op > 2) {    
+            std::cout<<"Wrond number, nothing to do\n";
         } else if (op > 0) {
             std::cout<<"Cipher ready. Input text: ";
             std::cin >> std::ws;
