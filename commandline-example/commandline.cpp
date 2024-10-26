@@ -29,7 +29,6 @@ void help(const char * name)
 int main(int argc, char **argv)
 {
     std::string key;
-    std::string text;
     int option;
     std::stack<std::pair<char, std::string>> op_stack;
     // read command line
