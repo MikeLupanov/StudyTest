@@ -9,6 +9,8 @@
 
 #include <algorithm>
 #include <functional>
+#include <algorithm>
+#include <execution>
 #include <stdexcept>
 #include <cctype>
 #include "vigenere.h"
@@ -75,18 +77,23 @@ std::string Vigenere::decrypt(const std::string& cipher_text)
 
 std::vector<int> Vigenere::convert(const std::string& s)
 {
-    std::vector<int> result;
-    for(auto c:s) {
-        result.push_back(alpha_num.at(toupper(c)));
-    }
+    auto ToUpper = [](char c) {
+        return alpha_num.at(std::toupper(c));
+    };
+    std::vector<int> result(s.size());
+    std::transform(std::execution::par,
+                   s.cbegin(), s.cend(),
+                   result.begin(),
+                   ToUpper);
     return result;
 }
 
 std::string Vigenere::convert(const std::vector<int>& v)
 {
-    std::string result;
-    for(auto i:v) {
-        result.push_back(alpha[i]);
-    }
+    std::string result(v.size(),' ');
+    std::transform(std::execution::par,
+                   v.cbegin(), v.cend(),
+                   result.begin(),
+                   [](int i) { return alpha[i]; });
     return result;
 }

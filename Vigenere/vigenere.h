@@ -39,8 +39,8 @@ public:
     Vigenere()=delete;                         //запретим конструктор без параметров
     Vigenere(Vigenere &v)=default;
     Vigenere(Vigenere &&v)=default;
-    Vigenere(Vigenere * v_ptr):key(v_ptr->key) {}
-    Vigenere(const std::string& skey);         //конструктор для установки ключа
+    explicit Vigenere(Vigenere * v_ptr):key(v_ptr->key) {}
+    explicit Vigenere(const std::string& skey);         //конструктор для установки ключа
     std::string encrypt(const std::string& open_text);  //зашифрование
     std::string decrypt(const std::string& cipher_text);//расшифрование
 };
